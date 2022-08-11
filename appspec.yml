@@ -1,0 +1,17 @@
+version: 0.0
+
+os: linux
+files:
+  - source: /
+    destination: /home/ubuntu/discord-bot
+hooks:
+  BeforeInstall:
+    - location: scripts/stop.sh
+      runas: root
+  # AfterInstall:
+  #   - location: scripts/init.sh
+  #     runas: root
+  ApplicationStart:
+  #ValidateService:
+    - location: scripts/start.sh
+      runas: root

@@ -14,4 +14,9 @@ messageManager(client);
 client.on('channelCreate', channel => {
   channel.send(`**${channel.name}** 채널이 생성되었습니다.`);
 });
+
+client.on('interaction', arg => {
+  console.log(arg);
+});
+
 client.login(discord_token);

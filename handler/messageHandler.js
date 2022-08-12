@@ -1,9 +1,15 @@
 const _ = require('loadsh');
+const { getAudioResource, DiscordAudio } = require('../tool/tool');
+const { AudioPlayer, VoiceConnectionStatus } = require('@discordjs/voice');
+
 require('dotenv').config();
+
+let discordAudio;
 
 const greet = msg => {
   msg.reply('안녕하세요!🐱');
 };
+
 const getUserInfo = msg => {
   const { channel } = msg;
   const guild = channel.guild;
@@ -22,4 +28,25 @@ const getUserInfo = msg => {
   );
 };
 
-module.exports = { greet, getUserInfo };
+const sendVoiceMessage = async (msg, voice) => {
+  const { resource } = getAudioResource(voice);
+  if (!discordAudio) {
+    discordAudio = new DiscordAudio();
+    await discordAudio.setVoiceConnection({
+      channelId: msg?.channel?.id,
+      guildId: msg.guild.id,
+      adapterCreator: msg?.guild?.voiceAdapterCreator, // voiceAdapterCreator 존재하지 않음 ..
+    });
+    discordAudio.audioPlayer(new AudioPlayer());
+
+    const voiceConnection = discordAudio.voiceConnection();
+    const audioPlayer = discordAudio.audioPlayer();
+
+    if (voiceConnection.status === VoiceConnectionStatus.Connected) {
+      voiceConnection.subscribe(audioPlayer);
+      audioPlayer.play(resource);
+    }
+  }
+};
+
+module.exports = { greet, getUserInfo, sendVoiceMessage };

@@ -1,5 +1,10 @@
-const { greet, getUserInfo } = require('../handler/messageHandler');
-const { getCondition } = require('../tool');
+const {
+  greet,
+  getUserInfo,
+  sendVoiceMessage,
+} = require('../handler/messageHandler');
+const { getCondition } = require('../tool/tool');
+
 messageManager = client => {
   client.on('message', msg => {
     console.log('message');
@@ -8,6 +13,8 @@ messageManager = client => {
       greet(msg);
     } else if (getCondition(content === '유저 정보', author.id)) {
       getUserInfo(msg);
+    } else if (getCondition(content === 'tts', author.id)) {
+      sendVoiceMessage(msg, '어쩔티비 저쩔티비');
     }
   });
 };

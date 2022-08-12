@@ -4,7 +4,14 @@ require('dotenv').config();
 const messageManager = require('./manager/message');
 
 const discord_token = process.env.BOT_TOKEN;
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_VOICE_STATES,
+    Intents.FLAGS.GUILD_MEMBERS,
+    Intents.FLAGS.GUILD_MESSAGES,
+  ],
+});
 
 client.once('ready', () => {
   console.log('Ready!');

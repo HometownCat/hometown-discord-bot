@@ -6,8 +6,19 @@ require('dotenv').config();
 
 let discordAudio;
 
+const images = [
+  `${process.cwd()}/images/gang.jpeg`,
+  `${process.cwd()}/images/gayong.jpeg`,
+  `${process.cwd()}/images/bar.jpeg`,
+  `${process.cwd()}/images/myungsu.jpeg`,
+  `${process.cwd()}/images/myungsu2.jpeg`,
+  `${process.cwd()}/images/pinggu.jpeg`,
+];
+
 const greet = msg => {
-  msg.reply('안녕하세요!🐱');
+  msg.channel.send({
+    files: [images[Math.floor(Math.random() * 6)]],
+  });
 };
 
 const getUserInfo = msg => {
@@ -34,7 +45,7 @@ const sendVoiceMessage = async (msg, voice) => {
     discordAudio = new DiscordAudio();
     await discordAudio.setVoiceConnection({
       channelId: msg?.channel?.id,
-      guildId: msg.guild.id,
+      guildId: msg?.guild?.id,
       adapterCreator: msg?.guild?.voiceAdapterCreator, // voiceAdapterCreator 존재하지 않음 ..
     });
     discordAudio.audioPlayer(new AudioPlayer());

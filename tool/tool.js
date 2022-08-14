@@ -10,6 +10,7 @@ const {
   joinVoiceChannel,
 } = require('@discordjs/voice');
 
+// 테스트중
 class DiscordAudio {
   constructor() {}
   async setVoiceConnection({ channelId, guildId, adapterCreator }) {

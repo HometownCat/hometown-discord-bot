@@ -14,7 +14,7 @@ messageManager = client => {
       getUserInfo(msg);
     }
     // else if (getCondition(content === 'tts', author.id)) {
-    //   sendVoiceMessage(msg, '어쩔티비');
+    //   sendVoiceMessage(msg, '...');
     // }
   });
 };

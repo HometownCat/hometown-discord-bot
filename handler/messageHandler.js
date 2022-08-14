@@ -39,6 +39,7 @@ const getUserInfo = msg => {
   );
 };
 
+// 테스트중
 const sendVoiceMessage = async (msg, voice) => {
   const { resource } = getAudioResource(voice);
   if (!discordAudio) {
